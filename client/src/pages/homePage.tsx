@@ -1,10 +1,4 @@
-
-const HomePage = () => {
-    return (
-        <div>
-            <p>Home Page</p>
-        </div>
-    )
-}
-
-export default HomePage
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Navbar from '../components/Navbar';
