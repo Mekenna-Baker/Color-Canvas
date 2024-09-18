@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import './App.css'
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
       <div>
-        <canvas id='paintMain' width='100' height='100'></canvas>
+        <canvas id='paintMain' width='500' height='500' style={{border: '1px solid #000000'}}></canvas>
       </div>
     </>
   )
