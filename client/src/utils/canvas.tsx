@@ -1,10 +1,5 @@
 import { useRef, useState, useEffect} from "react"
-
-const colors: {} = {
-    red: '#ff0000',
-    black: '#000000',
-    greyblue: '#2980B9',
-}
+import colors2 from "../assets/colors";
 
 let selectedColor: string  = '#000000';
 
@@ -100,9 +95,9 @@ const CanvasComponent: React.FC = () => {
             
             </div>
             <div className="colorSelectors">
-                <button style={{backgroundColor: '#ff0000'}} onClick={() => changeColor('#ff0000')}></button>
-                <button style={{backgroundColor: '#2980B9'}} onClick={() => changeColor('#2980B9')}></button>
-                <button style={{backgroundColor: '#000000'}} onClick={() => changeColor('#000000')}></button>
+                {colors2.map((color: {color: string, colorName: string}) => (
+                    <button style={{backgroundColor: color.color}} onClick={() => changeColor(color.color)}></button>
+                ))}
             </div>
         </div>
         
