@@ -1,30 +1,13 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from './index';
-import User from './user';
+import { UserFactory } from './user'; 
 
-interface ImageAttributes {
-    id: number;
-    title: string;
-    width: number;
-    height: number;
-    imageData: string;
-    userId: number;
+export const ImageFactory = () => {
 
-}
+    const User = UserFactory(); //initialize user model for foreign key definition
 
-class Image extends Model<ImageAttributes> implements ImageAttributes {
-    public id!: number;
-    public title!: string;
-    public width!: number;
-    public height!: number;
-    public imageData!: string;
-    public userId!: number;
+    const Image = sequelize.define('Image', { //define image model
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-}
-
-Image.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -47,7 +30,7 @@ Image.init({
         type: DataTypes.TEXT,
         allowNull: false,
     },
-    userId: {
+    userId: { //foreign key
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -55,15 +38,16 @@ Image.init({
             key: 'id',
         },
 
-        onDelete: 'CASCADE',
+        onDelete: 'CASCADE', //deletes all images associated with a user when user is deleted
     }
 }, {
     
-    modelName: 'Image',
-    tableName: 'images',
-    timestamps: true,
-    sequelize,
+    tableName: 'images', //defining table as images
+    timestamps: true,  //enable automatic timestamps
+
 
   });
 
-  export default Image;
+  return Image;
+
+}

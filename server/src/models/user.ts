@@ -5,7 +5,7 @@ export const UserFactory = () => { //userfactory function creating and returning
 
     const User = sequelize.define('User', { //defining user model
 
-        id: { 
+        id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
