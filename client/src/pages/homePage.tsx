@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Home: React.FC = () => {
+const Home: any = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [projects, setProjects] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -71,5 +71,6 @@ const Home: React.FC = () => {
         }
     }         
 }
- 
+
+export default Home
 
