@@ -34,10 +34,6 @@ const CanvasComponent: React.FC = () => {
         const pixelX = Math.floor(x /pixelSize) * pixelSize;
         const pixelY = Math.floor(y /pixelSize) * pixelSize;
 
-        const currentColor = ctx.getImageData(pixelX, pixelY, 1, 1).data;
-        const isRed = currentColor[0] === 255 && currentColor[1] === 0 && currentColor[2] === 0;
-
-        //between red and black currently
         ctx.fillStyle = selectedColor;
         ctx.fillRect(pixelX, pixelY, pixelSize, pixelSize);
     }
