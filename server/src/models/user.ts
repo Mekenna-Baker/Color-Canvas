@@ -1,24 +1,26 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from './index';
 
-interface UserAttributes {
+interface UserAttributes {  //define user attributes
     id: number;
     email: string;
     username: string;
     password: string;
 }
 
-class User extends Model<UserAttributes> implements UserAttributes {
+class User extends Model<UserAttributes> implements UserAttributes {  //define user class
     public id!: number;
     public email!: string;
     public username!: string;
     public password!: string;
 
-    // timestamps 
+    // automatically generated timestamps for creatation and updated
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
+
+//initalize user model 
 
 User.init({
     id: {
@@ -54,12 +56,12 @@ User.init({
         }
     }
 }, {
-    
-    modelName: 'User',
+
+    modelName: 'User', //Naming model User, and mapping it to table users
     tableName: 'users',
-    timestamps: true,
+    timestamps: true, //enable automatic timestamps
     sequelize
-        
+
 });
 
 export default User;
