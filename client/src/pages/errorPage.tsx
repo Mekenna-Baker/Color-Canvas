@@ -2,7 +2,8 @@
 const Error = () => {
     return (
         <div>
-            <p>Error Page</p>
+            <h1>Error!</h1>
+            <p>Im sorry, there was an error loading the page.</p>
         </div>
     )
 }
