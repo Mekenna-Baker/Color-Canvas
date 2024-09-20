@@ -20,3 +20,15 @@ const LoginPage: React.FC = () => {
             setError('Invalid email format. Please enter a valid email.');
             return;
           }
+
+    try {
+        const response = await axios.post('/api/auth/login', { email, password });
+        
+        localStorage.setItem('token', response.data.token);
+  
+        navigate('/');
+      } catch (err) {
+        
+        setError('Incorrect email or password.');
+      }
+    };
