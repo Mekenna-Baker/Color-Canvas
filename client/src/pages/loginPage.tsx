@@ -32,3 +32,19 @@ const LoginPage: React.FC = () => {
         setError('Incorrect email or password.');
       }
     };
+
+    return (
+        <div className="login-container">
+          <h2>Log In</h2>
+    
+          <form onSubmit={handleLogin}>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
