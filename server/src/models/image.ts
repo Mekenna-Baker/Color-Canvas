@@ -54,7 +54,7 @@ Image.init({
             model: User,
             key: 'id',
         },
-        
+
         onDelete: 'CASCADE',
     }
 }, {
@@ -65,3 +65,5 @@ Image.init({
     sequelize,
 
   });
+
+  export default Image;

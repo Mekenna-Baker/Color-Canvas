@@ -1,67 +1,50 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from './index';
 
-interface UserAttributes {  //define user attributes
-    id: number;
-    email: string;
-    username: string;
-    password: string;
-}
+export const UserFactory = () => { //userfactory function creating and returning user model
 
-class User extends Model<UserAttributes> implements UserAttributes {  //define user class
-    public id!: number;
-    public email!: string;
-    public username!: string;
-    public password!: string;
+    const User = sequelize.define('User', { //defining user model
 
-    // automatically generated timestamps for creatation and updated
+        id: { 
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-}
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            }
+        },
 
-//initalize user model 
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            }
+        },
 
-User.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            notEmpty: true,
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                len: [8, 100],
+            }
         }
-    },
+    }, {
 
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true,
-        }
-    },
+        tableName: 'users', //defining table name
+        timestamps: true, //enable automatic timestamps
 
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [8, 100],
-        }
-    }
-}, {
 
-    modelName: 'User', //Naming model User, and mapping it to table users
-    tableName: 'users',
-    timestamps: true, //enable automatic timestamps
-    sequelize
+    });
 
-});
+    return User; //return user model
 
-export default User;
+};
