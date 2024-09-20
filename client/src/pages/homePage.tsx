@@ -71,5 +71,3 @@ const Home: React.FC = () => {
         }
     }         
 }
- 
-

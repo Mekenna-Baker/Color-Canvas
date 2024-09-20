@@ -1,13 +1,18 @@
-import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import './App.css'
 
+import Navbar from './components/navbar'
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
-        <canvas id='paintMain' width='100' height='100'></canvas>
+        <Navbar/>
+
+        <main>
+          <Outlet />
+        </main>
       </div>
     </>
   )
