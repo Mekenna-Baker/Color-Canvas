@@ -48,3 +48,27 @@ const LoginPage: React.FC = () => {
                 required
               />
             </div>
+
+            <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Error Message Display */}
+        {error && <p className="error-message">{error}</p>}
+
+        <button type="submit" className="btn btn-primary">Log In</button>
+      </form>
+
+      <p>Don't have an account? <a href="/setup">Create one here</a>.</p>
+    </div>
+  );
+};
+
+export default LoginPage;
