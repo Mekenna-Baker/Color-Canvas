@@ -63,11 +63,22 @@ const renderContent = () => {
                     </div>
                 ))
             ) : (
-                <p>You dont have any projects yet. Start a new one1</p>
-                )
-                
+                <p>You dont have any projects yet. Start a new one!</p>
             )}
-        }
+            <Link to="/create-project" className="btn btn-primary">Start a New Project</Link>
+            </div>
+        );
     }
- 
+};
+
+return (
+    <div>
+        <Navbar /> {/*Navbar with Links*/}
+
+        <div></div>
+    </div>
+)
+
+                
+    
 
