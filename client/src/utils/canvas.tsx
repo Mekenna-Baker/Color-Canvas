@@ -12,6 +12,7 @@ const CanvasComponent: React.FC = () => {
     const pixelSize = 10;
 
     const [isPainting, setPainting] = useState(false);
+    const [isClear, setClear] = useState(false);
 
     const changeColor = (color: string) => {
         return selectedColor = color;
@@ -39,6 +40,22 @@ const CanvasComponent: React.FC = () => {
         ctx.fillRect(pixelX, pixelY, pixelSize, pixelSize);
     }
 
+    const erasePixel = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
+        //grab the mouse canvas coordinates
+        const pixelX = Math.floor(x /pixelSize) * pixelSize;
+        const pixelY = Math.floor(y /pixelSize) * pixelSize;
+
+        //clear the selected pixel
+        ctx.clearRect(pixelX, pixelY, pixelSize, pixelSize)
+
+        //redraw the grid at the erased pixel
+        ctx.fillStyle = '#ffffff'
+        ctx.fillRect(pixelX, pixelY, pixelSize, pixelSize)
+
+        ctx.strokeStyle = '#cccccc';
+        ctx.strokeRect(pixelX, pixelY, pixelSize, pixelSize)
+    }
+
     const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
         const canvas = canvasRef.current;
         if(!canvas) return;
@@ -51,8 +68,14 @@ const CanvasComponent: React.FC = () => {
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        drawPixel(ctx, x, y);
-        setPainting(true);
+        //if the eraser is activated then set pixels to clear
+        if(isClear){
+            erasePixel(ctx, x ,y)
+            setPainting(true);
+        } else {
+            drawPixel(ctx, x, y);
+            setPainting(true);
+        }
     }
 
     const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -68,12 +91,26 @@ const CanvasComponent: React.FC = () => {
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        drawPixel(ctx, x, y)
+        if(isClear){
+            erasePixel(ctx, x ,y)
+        } else {
+            drawPixel(ctx, x, y)
+        }
     }
 
     const handleMouseUpLeave = () => {
         setPainting(false);
     };
+
+    const clearCanvas = () => {
+        const ctx = canvasRef.current?.getContext('2d');
+        if(!ctx) return;
+
+        //clear the grid completly
+        ctx.clearRect(0, 0, canvasHeight, canvasWidth);
+        //redraw the grid
+        drawGrid(ctx)
+    }
 
     const uploadCanvas = () => {
         console.log('Uploading...')
@@ -101,20 +138,32 @@ const CanvasComponent: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div className="canvas-parent-container">
             <div className="canvasHolder">
                 <canvas id='paintMain' ref={canvasRef} width={canvasWidth} height={canvasHeight} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUpLeave} onMouseLeave={handleMouseUpLeave} style={{border: '1px solid red'}}></canvas>
             
             </div>
-            <div className="colorSelectors">
-                {colors2.map((color: {index: number, color: string, colorName: string}) => (
-                    <button key={color.index} style={{backgroundColor: color.color}} onClick={() => changeColor(color.color)}></button>
-                ))}
-            </div>
+            <div className="buttonContainer">
 
-            <div className="uploadContainer">
-                <button onClick={uploadCanvas}>Upload</button>
+                <div>
+                    <button onClick={() => setClear(true)}>Eraser</button>
+                </div>
+                <div className="colorSelectors">
+                    {colors2.map((color: {index: number, color: string, colorName: string}) => (
+                        <button key={color.index} style={{backgroundColor: color.color}} onClick={() => {changeColor(color.color); setClear(false)}}></button>
+                    ))}
+                </div>
+
+                <div>
+                    <button onClick={clearCanvas}>Clear Canvas</button>
+                </div>
+
+                <div className="uploadContainer">
+                    <button onClick={uploadCanvas}>Upload</button>
+                </div>
             </div>
+            
+
         </div>
         
     )
