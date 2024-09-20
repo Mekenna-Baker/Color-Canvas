@@ -1,50 +1,85 @@
-import { DataTypes } from 'sequelize';
-import sequelize from './index';
+import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import bcrypt from 'bcrypt';
 
-export const UserFactory = () => { //userfactory function creating and returning user model
+interface UserAttributes {  //defining attributes for model
+    id: number;
+    email: string;
+    username: string;
+    password: string;
+}
 
-    const User = sequelize.define('User', { //defining user model
+//interface for defining attributes
 
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
+
+//defining the User model
+
+export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+    public id!: number;
+    public email!: string;
+    public username!: string;
+    public password!: string;
+
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
+
+    public async setPassword(password: string) {
+        const saltRounds = 10;
+        this.password = await bcrypt.hash(password, saltRounds);
+
+    }
+
+}
+
+//initialize the User model
+
+export function UserFactory(sequelize: Sequelize): typeof User {
+    User.init( //defining the User model
+        {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+            username: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true,
+                validate: {
+                    isEmail: true,
+                },
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                    len: [8, 100],
+                },
+            },
         },
-
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-                notEmpty: true,
+        {
+            tableName: 'users',
+            sequelize,
+            hooks: {
+              beforeCreate: async (user: User) => {
+                await user.setPassword(user.password);
+              },
+              beforeUpdate: async (user: User) => {
+                await user.setPassword(user.password);
+              },
             }
-        },
-
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-                isEmail: true,
-            }
-        },
-
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [8, 100],
-            }
-        }
-    }, {
-
-        tableName: 'users', //defining table name
-        timestamps: true, //enable automatic timestamps
+          }
+        );
 
 
-    });
-
-    return User; //return user model
-
-};
+    return User;
+}

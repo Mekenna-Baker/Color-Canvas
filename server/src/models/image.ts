@@ -1,12 +1,41 @@
-import { DataTypes } from 'sequelize';
-import sequelize from './index';
-import { UserFactory } from './user'; 
+import { DataTypes, Sequelize, Model, Optional} from 'sequelize';
+import { User } from './user';
 
-export const ImageFactory = () => {
+interface ImageAttributes { //defining attributes for model
+    id: number;
+    title: string;
+    width: number;
+    height: number;
+    imageData: string;
+    userId: number;
 
-    const User = UserFactory(); //initialize user model for foreign key definition
+}
 
-    const Image = sequelize.define('Image', { //define image model
+//interface for defining attributes 
+
+interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> {}
+
+//defining the Image model
+
+export class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes
+ {
+
+    public id!: number;
+    public title!: string;
+    public width!: number;
+    public height!: number;
+    public imageData!: string;
+    public userId!: number; // Foreign key to user model
+
+    public readonly createdAt!: Date; //timestamps
+    public readonly updatedAt!: Date;
+}
+
+//initialize the Image model
+
+export function ImageFactory(sequelize: Sequelize): typeof Image {
+    Image.init( //defining the Image model
+        {
 
     id: {
         type: DataTypes.INTEGER,
@@ -38,15 +67,22 @@ export const ImageFactory = () => {
             key: 'id',
         },
 
-        onDelete: 'CASCADE', //deletes all images associated with a user when user is deleted
-    }
+    },
+
 }, {
     
     tableName: 'images', //defining table as images
+    sequelize, //pass the sequelize instance
     timestamps: true,  //enable automatic timestamps
-
-
   });
+
+
+  Image.belongsTo(User, {
+    foreignKey: 'userId',
+    as: 'user',
+    onDelete: 'CASCADE',
+
+    });
 
   return Image;
 
