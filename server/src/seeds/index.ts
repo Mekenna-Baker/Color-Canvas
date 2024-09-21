@@ -1,0 +1,23 @@
+import { sequelize } from "../models/index";
+import { seedUsers } from "./user-seeds";
+import { seedImages } from "./image-seeds";
+
+const seedAll = async (): Promise<void> => {
+    try {
+        await sequelize.sync({ force: true});
+        console.log('\n------ DATABASE SYNCED ------\n')
+
+        await seedUsers();
+        console.log('\n------ USERS SEEDED ------\n');
+
+        await seedImages();
+        console.log('\n------- IMAGES SEEDED -------\n')
+
+        process.exit(0);
+    } catch (err) {
+        console.error('Error seeding Database:', err);
+        process.exit(1);
+    }
+};
+
+seedAll();

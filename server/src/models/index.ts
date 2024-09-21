@@ -15,7 +15,7 @@ const sequelize = process.env.DB_URL
 const User = UserAssembely(sequelize);
 const Image = ImageAssembelly(sequelize)
 
-User.hasMany(Image, {foreignKey: 'assignedUserId'});
-Image.belongsTo(User, {foreignKey: 'assignedUserId', as: 'assignedUser'})
+User.hasMany(Image, {foreignKey: 'userId'});
+Image.belongsTo(User, {foreignKey: 'userId', as: 'assignedUser'})
 
 export {sequelize, User, Image};

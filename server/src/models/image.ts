@@ -21,6 +21,8 @@ export class Image extends Model<ImageAttributes, ImageCreationAttributes> imple
     public imageData!: string;
     public userId!: number;
 
+    public assignedUser?: User;
+
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
