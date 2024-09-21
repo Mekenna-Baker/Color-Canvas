@@ -1,6 +1,6 @@
-import { sequelize } from "../models/index";
-import { seedUsers } from "./user-seeds";
-import { seedImages } from "./image-seeds";
+import { sequelize } from "../models/index.js";
+import { seedUsers } from "./user-seeds.js";
+import { seedImages } from "./image-seeds.js";
 
 const seedAll = async (): Promise<void> => {
     try {

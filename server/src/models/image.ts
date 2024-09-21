@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import User from './user';
+import User from './user.js';
 
 interface ImageAttributes {
     id: number;

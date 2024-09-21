@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { userRouter } from './user-routes';
-import { imageRouter } from './image-routes';
+import { userRouter } from './user-routes.js';
+import { imageRouter } from './image-routes.js';
 
 const router = Router();
 

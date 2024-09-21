@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
-import { Image } from "../models/image"
-import { User } from "../models/user"
+import { Image } from "../models/image.js"
+import { User } from "../models/user.js"
 
 // Get images
 export const getAllImages = async (_req: Request, res: Response) => {

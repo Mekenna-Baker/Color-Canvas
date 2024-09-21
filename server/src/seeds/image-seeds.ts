@@ -1,4 +1,4 @@
-import { Image } from "../models/image";
+import { Image } from "../models/image.js";
 
 export const seedImages = async () => {
     await Image.bulkCreate([

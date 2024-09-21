@@ -2,8 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Sequelize } from 'sequelize';
-import { UserAssembely } from './user';
-import { ImageAssembelly } from './image';
+import { UserAssembely } from './user.js';
+import { ImageAssembelly } from './image.js';
 
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)
