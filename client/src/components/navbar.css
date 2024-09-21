@@ -1,0 +1,10 @@
+
+.nav {
+    display: flex;
+    background-color: aliceblue;
+    flex-direction: row;
+}
+
+.link {
+    margin: 10px;
+}
