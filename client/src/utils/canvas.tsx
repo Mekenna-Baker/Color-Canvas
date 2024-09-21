@@ -1,5 +1,6 @@
 import  React, { useRef, useState, useEffect} from "react"
 import colors2 from "../assets/colors";
+import { createImage } from "../api/imageAPI";
 
 let selectedColor: string  = '#000000';
 
@@ -112,19 +113,36 @@ const CanvasComponent: React.FC = () => {
         drawGrid(ctx)
     }
 
-    const uploadCanvas = () => {
+    const uploadCanvas = async () => {
         console.log('Uploading...')
-    
-        const canvas = canvasRef.current;
-        if(!canvas) return;
-    
-        const dataUrl = canvas?.toDataURL('image/png');
-        const link = document.createElement('a');
-    
-        link.href = dataUrl;
-        link.download = 'canvas-image.png';
-        link.click();
+        
+        try {
+            const canvas = canvasRef.current;
+            if(!canvas) return;
+        
+            const dataUrl = canvas?.toDataURL('image/png');
+            const link = document.createElement('a');
+        
+            link.href = dataUrl;
+            link.download = 'canvas-image.png';
+            link.click();
 
+            //send data to be uploaded
+            const imageObj: any = {
+                title: 'title',
+                width: canvasWidth,
+                height: canvasHeight, 
+                imageData: dataUrl,
+                userId: 2,
+            }
+
+            const result = await createImage(imageObj);
+            console.log('Image Uploaded successfully: ', result);
+            
+
+        } catch(err: any){
+            console.error('Error Uploading image Data:', err)
+        }
     }
 
     useEffect(() => {
