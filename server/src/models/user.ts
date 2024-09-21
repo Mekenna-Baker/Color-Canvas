@@ -1,5 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from './index';
+import { DataTypes, Model, Sequelize, Optional } from 'sequelize';
 
 interface UserAttributes {  //define user attributes
     id: number;
@@ -8,7 +7,9 @@ interface UserAttributes {  //define user attributes
     password: string;
 }
 
-class User extends Model<UserAttributes> implements UserAttributes {  //define user class
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+
+export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {  //define user class
     public id!: number;
     public email!: string;
     public username!: string;
@@ -22,46 +23,51 @@ class User extends Model<UserAttributes> implements UserAttributes {  //define u
 
 //initalize user model 
 
-User.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            notEmpty: true,
+export function UserAssembely(sequelize: Sequelize): typeof User {
+    User.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+    
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            }
+        },
+    
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            }
+        },
+    
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                len: [8, 100],
+            }
         }
-    },
+    }, {
+    
+        modelName: 'User', //Naming model User, and mapping it to table users
+        tableName: 'users',
+        timestamps: true, //enable automatic timestamps
+        sequelize
+    
+    });
 
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true,
-        }
-    },
+    return User
+}
 
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [8, 100],
-        }
-    }
-}, {
-
-    modelName: 'User', //Naming model User, and mapping it to table users
-    tableName: 'users',
-    timestamps: true, //enable automatic timestamps
-    sequelize
-
-});
 
 export default User;

@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Sequelize } from 'sequelize';
+import { UserAssembely } from './user';
+import { ImageAssembelly } from './image';
 
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)
@@ -10,4 +12,10 @@ const sequelize = process.env.DB_URL
       dialect: 'postgres',
   });
 
-export default sequelize;
+const User = UserAssembely(sequelize);
+const Image = ImageAssembelly(sequelize)
+
+User.hasMany(Image, {foreignKey: 'assignedUserId'});
+Image.belongsTo(User, {foreignKey: 'assignedUserId', as: 'assignedUser'})
+
+export {sequelize, User, Image};

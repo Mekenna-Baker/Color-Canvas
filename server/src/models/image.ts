@@ -1,5 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from './index';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import User from './user';
 
 interface ImageAttributes {
@@ -12,7 +11,9 @@ interface ImageAttributes {
 
 }
 
-class Image extends Model<ImageAttributes> implements ImageAttributes {
+interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> {}
+
+export class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes {
     public id!: number;
     public title!: string;
     public width!: number;
@@ -24,44 +25,48 @@ class Image extends Model<ImageAttributes> implements ImageAttributes {
     public readonly updatedAt!: Date;
 }
 
-Image.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    width: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    height: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    imageData: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: User,
-            key: 'id',
+export function ImageAssembelly(sequelize: Sequelize): typeof Image {
+    Image.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
         },
-        
-        onDelete: 'CASCADE',
-    }
-}, {
     
-    modelName: 'Image',
-    tableName: 'images',
-    timestamps: true,
-    sequelize,
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        width: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        height: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        imageData: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: User,
+                key: 'id',
+            },
+            
+            onDelete: 'CASCADE',
+        }
+    }, {
+        
+        modelName: 'Image',
+        tableName: 'images',
+        timestamps: true,
+        sequelize,
+    
+      });
 
-  });
+    return Image
+}
