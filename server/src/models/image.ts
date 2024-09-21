@@ -1,5 +1,5 @@
-import { DataTypes, Sequelize, Model, Optional} from 'sequelize';
-import { User } from './user';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import User from './user.js';
 
 interface ImageAttributes { //defining attributes for model
     id: number;
@@ -11,15 +11,9 @@ interface ImageAttributes { //defining attributes for model
 
 }
 
-//interface for defining attributes 
+interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> { }
 
-interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> {}
-
-//defining the Image model
-
-export class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes
- {
-
+export class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes {
     public id!: number;
     public title!: string;
     public width!: number;
@@ -27,63 +21,54 @@ export class Image extends Model<ImageAttributes, ImageCreationAttributes> imple
     public imageData!: string;
     public userId!: number; // Foreign key to user model
 
-    public readonly createdAt!: Date; //timestamps
+    public assignedUser?: User;
+
+    public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
-//initialize the Image model
-
-export function ImageFactory(sequelize: Sequelize): typeof Image {
-    Image.init( //defining the Image model
-        {
-
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    width: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    height: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    imageData: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    userId: { //foreign key
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: User,
-            key: 'id',
+export function ImageAssembelly(sequelize: Sequelize): typeof Image {
+    Image.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
         },
 
-    },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        width: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        height: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        imageData: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: User,
+                key: 'id',
+            },
 
-}, {
-    
-    tableName: 'images', //defining table as images
-    sequelize, //pass the sequelize instance
-    timestamps: true,  //enable automatic timestamps
-  });
+            onDelete: 'CASCADE',
+        }
+    }, {
 
-
-  Image.belongsTo(User, {
-    foreignKey: 'userId',
-    as: 'user',
-    onDelete: 'CASCADE',
+        modelName: 'Image',
+        tableName: 'images',
+        timestamps: true,
+        sequelize,
 
     });
 
-  return Image;
-
+    return Image
 }

@@ -2,15 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Sequelize } from 'sequelize';
-import { UserFactory } from './user';
-import { ImageFactory } from './image';
-
-
-
-console.log("DB Name:", process.env.DB_NAME);
-console.log("DB User:", process.env.DB_USER);
-
-//initialize the Sequelize instance
+import { UserAssembely } from './user.js';
+import { ImageAssembelly } from './image.js';
 
 const sequelize = process.env.DB_URL
     ? new Sequelize(process.env.DB_URL)
@@ -22,14 +15,10 @@ const sequelize = process.env.DB_URL
         },
     });
 
-const User = UserFactory(sequelize);
-const Image = ImageFactory(sequelize);
+const User = UserAssembely(sequelize);
+const Image = ImageAssembelly(sequelize)
 
-User.hasMany(Image, { foreignKey: 'userId', as: 'images', });
+User.hasMany(Image, {foreignKey: 'userId'});
+Image.belongsTo(User, {foreignKey: 'userId', as: 'assignedUser'})
 
-sequelize.sync({ alter: true }).then(() => {
-    console.log('Database & tables created!');
-});
-
-
-export { sequelize, User, Image };
+export {sequelize, User, Image};
