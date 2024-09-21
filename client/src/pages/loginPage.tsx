@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch('http://localhost:5174/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),  // Send username and password
@@ -53,7 +53,7 @@ const LoginPage: React.FC = () => {
           <h2>Log In</h2>
           <form onSubmit={handleSubmit}>
             <div>
-              <label>Username:</label>
+              <label>Username: </label>
               <input
                 type="text"
                 value={username}
@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
               />
             </div>
             <div>
-              <label>Password:</label>
+              <label>Password: </label>
               <input
                 type="password"
                 value={password}

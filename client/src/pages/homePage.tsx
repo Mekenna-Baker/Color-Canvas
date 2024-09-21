@@ -4,13 +4,25 @@ import axios from 'axios';
 
 import logo from '../assets/logo.png'; // Import the logo image from assets folder
 
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+}
+
 const Home: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Set to true if logged in
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+       const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+     setIsLoggedIn(false);
+    }
     
 
     if (isLoggedIn) {
