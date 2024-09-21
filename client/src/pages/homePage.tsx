@@ -50,10 +50,6 @@ const Home: React.FC = () => {
           <h1>Welcome to Color Canvas!</h1>
           <p>"Unleash your creativity, one pixel at a time."</p>
           <img src={logo} alt="Color Canvas Logo" style={{ width: '200px', height: 'auto' }} />
-          <p>
-            <Link to="/login" className="btn btn-primary">Log In</Link> or{' '}
-            <Link to="/setup" className="btn btn-secondary">Create an Account</Link>
-          </p>
         </div>
       );
     } else {

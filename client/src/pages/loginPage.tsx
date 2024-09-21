@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5174/login', {
+            const response = await fetch('/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),  // Send username and password
