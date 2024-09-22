@@ -1,79 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Error from '../pages/errorPage';
-
+import React, { useState, ChangeEvent } from 'react';
+import Auth from '../utils/auth'
+import {login} from '../api/authAPI';
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-
-  //redirect to canvas is user is logged in
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/canvas');
-    }
-  }, [navigate]);
-
-  //handle login
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),  // Send username and password
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
-        navigate('/canvas'); //redirect to canvas if logged in
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message);
-      }
-    } catch (err) {
-      setError('Error logging in');
-    }
-  };
-
-  //render error component if error
-
-  if (error) {
-    return <Error />;
-  }
-
-  return (
-    <div className="login-container">
-      <h2>Log In</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username: </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}  // Update state on input
-            required
-          />
+    const [loginData, setLoginData] = useState({
+        username: '',
+        password: ''
+    });
+    //redirect to canvas is user is logged in
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const {name, value} = e.target;
+        setLoginData({
+            ...loginData,
+            [name]: value
+        });
+    };
+    //handle login
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const data = await login(loginData);
+            Auth.login(data.token);
+        } catch (err: any) {
+            console.error('Failed to login:', err)
+        }
+    };
+    return (
+        <div className="login-container">
+          <form onSubmit={handleSubmit}>
+            <h2>Log In</h2>
+              <label>Username: </label>
+              <input
+                type="text"
+                name='username'
+                value={loginData.username || ''}
+                onChange={handleChange}  // Update state on input
+                required
+              />
+              <label>Password: </label>
+              <input
+                type="password"
+                name='password'
+                value={loginData.password || ''}
+                onChange={handleChange}  // Update state on input
+                required
+              />
+            <button type="submit">Log In</button>  {/* Submit button */}
+          </form>
         </div>
-        <div>
-          <label>Password: </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}  // Update state on input
-            required
-          />
-        </div>
-        <button type="submit">Log In</button>  {/* Submit button */}
-      </form>
-    </div>
-  );
-};
-
-export default LoginPage;
+      );
+    };
+    export default LoginPage;

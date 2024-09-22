@@ -18,13 +18,10 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage/>,
       },
-      
       {
         path: '/CanvasPage',
         element: <CanvasPage/>,
-
       },
-
       {
         path: '/login',  // Add the login route here
         element: <LoginPage />,  // LoginPage component for this path
