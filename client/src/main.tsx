@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import CanvasPage from './pages/canvasPage.tsx';
 import HomePage from './pages/homePage.tsx';
+import LoginPage from './pages/loginPage.tsx';
+import CreateAccount from './pages/createAccountPage.tsx';
 import Error from './pages/errorPage.tsx';
 import LoginPage from './pages/loginPage.tsx';
 
@@ -20,16 +22,21 @@ const router = createBrowserRouter([
       },
       
       {
-        path: '/CanvasPage',
+        path: '/canvasPage',
         element: <CanvasPage/>,
 
       },
 
       {
-        path: '/login',  // Add the login route here
-        element: <LoginPage />,  // LoginPage component for this path
+        path: '/login',
+        element: <LoginPage/>
       },
-      
+
+      {
+        path: '/createAccount',
+        element: <CreateAccount/>
+      }
+
     ],
   },
 ]);

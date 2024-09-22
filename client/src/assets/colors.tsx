@@ -36,7 +36,26 @@ const colors2: any = [
         color: '#D35400',
         colorName: 'Greyish Orange'
         
-    }
+    },
+
+    {
+        index: 7,
+        color: "#D82700",
+        colorName: 'mario'
+    }, 
+
+    {
+        index: 8, 
+        color: '#FD9838',
+        colorName: 'mario2'
+    },
+
+    {
+        index: 9, 
+        color: '#A45400',
+        colorName: 'mario3'
+    },
+
 ]
 
 export default colors2
