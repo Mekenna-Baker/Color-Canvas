@@ -1,3 +1,5 @@
+import { ImageData } from "../interfaces/imageData";
+
 const retrieveImages = async () => {
     try {
         //should be a fetch to /api/images

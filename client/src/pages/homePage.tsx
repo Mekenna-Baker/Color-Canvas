@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { retrieveImages } from '../api/imageAPI';
+import auth from '../utils/auth';
 
 import Error from './errorPage';
-import logo from './assets/logo.png'; // Import the logo image from assets folder
+import logo from '../assets/logo.png'; // Import the logo image from assets folder
 
 const Home: React.FC = () => {
   //fix this line when the code for login has been added
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // Set to true if logged in
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Set to true if logged in
   const [projects, setProjects] = useState<any[]>([]);
   const [error, setError] = useState<boolean | null>(null);
 
@@ -20,8 +21,16 @@ const Home: React.FC = () => {
       setError(true);
     }
   };
+
+  const checkLogin = () => {
+    if(auth.loggedIn()){
+      setIsLoggedIn(true);
+    }
+  }
    
   useEffect(() => {
+    checkLogin();
+
     if (isLoggedIn) {
         fetchProjects()
     }
@@ -37,12 +46,14 @@ const Home: React.FC = () => {
       {
         !isLoggedIn ? (
           <div>
-            <h1>
-              Login to create and View Projects!
-            </h1>
+            <img src={logo} width='150' height='150'></img>
+            <h3>
+              Login or Create an account with us to Create and View Canvases!
+            </h3>
           </div>
         ) : (
           <div>
+            <img src={logo} width='150' height='150'></img>
               {projects.map((project) => (
                 <div key={project.id}>
                   <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>

@@ -3,13 +3,13 @@ import { getAllusers, createUser, updateUser } from '../../controllers/user-cont
 
 const router = express.Router();
 
-//Get Users
+//Get Users (grab all users)
 router.get('/', getAllusers);
 
-//Post User
+//Post User (create user)
 router.post('/', createUser);
 
-//Put user
+//Put user (update user)
 router.put('/', updateUser);
 
 
