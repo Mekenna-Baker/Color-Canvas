@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { retrieveImages } from '../api/imageAPI';
+
 
 import logo from '../assets/logo.png'; // Import the logo image from assets folder
 
@@ -8,40 +9,43 @@ interface Project {
   id: number;
   title: string;
   description: string;
+  imageData: string; 
+  width: number;     
+  height: number;    
+  assignedUser: {   
+    username: string;
+  };
 }
 
+
 const Home: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Set to true if logged in
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); 
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchProjects = async () => {
+    try {
+      const data = await retrieveImages();
+      setProjects(data);
+      setLoading(false);
+    } catch (err) {
+      console.error('Failed to retrieve Images')
+      setError('Failed to retrieve projects');
+      setLoading(false);
+    }
+  };
+   
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
+      fetchProjects();
     } else {
       setIsLoggedIn(false);
     }
-
-
-    if (isLoggedIn) {
-      const fetchProjects = async () => {
-        try {
-          const response = await axios.get('/api/projects');
-          setProjects(response.data);
-          setLoading(false);
-        } catch (err) {
-          setError('Error fetching projects');
-          setLoading(false);
-        }
-      };
-
-      fetchProjects();
-    } else {
-      setLoading(false);
-    }
   }, [isLoggedIn]);
+
 
   const renderContent = () => {
     if (!isLoggedIn) {
@@ -81,12 +85,31 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      {/* Main content of the homepage */}
-      <div className="home-content">
-        {renderContent()}
-      </div>
-    </div>
+    <>
+    {renderContent()}
+    
+      {
+        !isLoggedIn ? (
+          <div>
+            <h1>
+              Login to create and View Projects!
+            </h1>
+          </div>
+        ) : (
+          <div>
+              {projects.map((project) => (
+                <div key={project.id}>
+                  <img src={project.imageData} width={project.width} height={project.height}></img>
+                  <h1>{project.title}</h1>
+                  <h3>width: {project.width} Height: {project.height}</h3>
+                  <h3>Made by {project.assignedUser.username}</h3>
+                </div>
+              )
+            )};
+          </div>
+        )
+      }
+    </>
   );
 };
 
