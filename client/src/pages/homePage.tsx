@@ -17,13 +17,13 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-       const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
     } else {
-     setIsLoggedIn(false);
+      setIsLoggedIn(false);
     }
-    
+
 
     if (isLoggedIn) {
       const fetchProjects = async () => {
