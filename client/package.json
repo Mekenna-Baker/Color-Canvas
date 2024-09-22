@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
+<<<<<<< HEAD
+=======
+    "jwt-decode": "^4.0.0",
+>>>>>>> 9e49dc7376108b27e523c56c2cdb4eb796a681de
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.2"

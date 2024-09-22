@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { retrieveImages } from '../api/imageAPI';
+
+import Error from './errorPage';
+import logo from './assets/logo.png'; // Import the logo image from assets folder
 
 const Home: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [projects, setProjects] = useState<any[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+  //fix this line when the code for login has been added
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // Set to true if logged in
+  const [projects, setProjects] = useState<any[]>([]);
+  const [error, setError] = useState<boolean | null>(null);
 
+<<<<<<< HEAD
     useEffect(() => {
 
         if (isLoggedIn) {
@@ -74,9 +77,58 @@ const Home: React.FC = () => {
             <Link to="/create-project" className="btn btn-primary">Start a New Project</Link>
             </div>
         );
+=======
+  const fetchProjects = async () => {
+    try {
+      const data = await retrieveImages();
+      setProjects(data);
+      
+    } catch (err) {
+      console.error('Failed to retrieve Images')
+      setError(true);
+>>>>>>> 9e49dc7376108b27e523c56c2cdb4eb796a681de
     }
+  };
+   
+  useEffect(() => {
+    if (isLoggedIn) {
+        fetchProjects()
+    }
+  }, [isLoggedIn]);
+
+  
+  if (error) {
+    return <Error />
+  }
+
+  return (
+    <>
+      {
+        !isLoggedIn ? (
+          <div>
+            <h1>
+              Login to create and View Projects!
+            </h1>
+          </div>
+        ) : (
+          <div>
+              {projects.map((project) => (
+                <div key={project.id}>
+                  <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>
+                  <h2>{project.title}</h2>
+                  <h3>width: {project.width} Height: {project.height}</h3>
+                  <h3>Made by {project.assignedUser.username}</h3>
+                </div>
+              )
+            )};
+          </div>
+        )
+      }
+    </>
+  );
 };
 
+<<<<<<< HEAD
 return (
     <div>
         <Navbar /> {/*Navbar with Links*/}
@@ -95,3 +147,6 @@ return (
     }         
 }
 >>>>>>> a6493e5633cdd66a44bdba11d0b984cbeafad7e6
+=======
+export default Home;
+>>>>>>> 9e49dc7376108b27e523c56c2cdb4eb796a681de
