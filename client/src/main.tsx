@@ -8,6 +8,7 @@ import HomePage from './pages/homePage.tsx';
 import LoginPage from './pages/loginPage.tsx';
 import CreateAccount from './pages/createAccountPage.tsx';
 import Error from './pages/errorPage.tsx';
+import LoginPage from './pages/loginPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
         path: '/createAccount',
         element: <CreateAccount/>
       }
+
     ],
   },
 ]);
