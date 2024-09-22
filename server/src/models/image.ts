@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import User from './user.js';
 
-interface ImageAttributes {
+interface ImageAttributes { //defining attributes for model
     id: number;
     title: string;
     width: number;
@@ -11,7 +11,7 @@ interface ImageAttributes {
 
 }
 
-interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> {}
+interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> { }
 
 export class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes {
     public id!: number;
@@ -19,7 +19,7 @@ export class Image extends Model<ImageAttributes, ImageCreationAttributes> imple
     public width!: number;
     public height!: number;
     public imageData!: string;
-    public userId!: number;
+    public userId!: number; // Foreign key to user model
 
     public assignedUser?: User;
 
@@ -34,7 +34,7 @@ export function ImageAssembelly(sequelize: Sequelize): typeof Image {
             autoIncrement: true,
             primaryKey: true,
         },
-    
+
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -58,17 +58,17 @@ export function ImageAssembelly(sequelize: Sequelize): typeof Image {
                 model: User,
                 key: 'id',
             },
-            
+
             onDelete: 'CASCADE',
         }
     }, {
-        
+
         modelName: 'Image',
         tableName: 'images',
         timestamps: true,
         sequelize,
-    
-      });
+
+    });
 
     return Image
 }

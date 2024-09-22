@@ -7,6 +7,9 @@ const Navbar = () => {
             <nav>
                 <Link to='/' className='link'>Home</Link>
                 <Link to='/canvasPage' className='link'>Canvas</Link>
+                <Link to='/login' className='link'>Log In</Link>
+                <Link to="/setup" className='link'>Create an Account</Link>
+
             </nav>
         </div>
         

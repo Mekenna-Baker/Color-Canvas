@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize, Optional } from 'sequelize';
 
-interface UserAttributes {  //define user attributes
+
+interface UserAttributes {  //defining attributes for model
     id: number;
     email: string;
     username: string;
@@ -15,13 +16,12 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public username!: string;
     public password!: string;
 
-    // automatically generated timestamps for creatation and updated
-
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
 }
 
-//initalize user model 
+//initialize the User model
 
 export function UserAssembely(sequelize: Sequelize): typeof User {
     User.init({

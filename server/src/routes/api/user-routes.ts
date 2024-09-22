@@ -12,6 +12,7 @@ router.post('/', createUser);
 //Put user
 router.put('/', updateUser);
 
+
 export { router as userRouter };
 
 
