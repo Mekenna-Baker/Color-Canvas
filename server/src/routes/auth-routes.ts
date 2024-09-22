@@ -20,6 +20,11 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const secretKey = process.env.JWT_SECRET_KEY || '';
+    if(!secretKey){
+        console.error('JWT Secret Key is Missing!');
+        return res.status(500).json({message: 'Internal Server Error'})
+    } 
+
     const token = jwt.sign({username}, secretKey, {expiresIn: '1h'});
     return res.json({token})
 }

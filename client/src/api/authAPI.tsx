@@ -16,7 +16,7 @@ const login = async (userInfo: UserLogin) => {
 
     } catch (err: any){
         console.log('Error from user Login:', err);
-        return Promise.reject('Could not fetch the user informaion.')
+        return Promise.reject('Could not fetch the user information.')
     }
 }
 
