@@ -121,12 +121,16 @@ const CanvasComponent: React.FC = () => {
             if(!canvas) return;
         
             const dataUrl = canvas?.toDataURL('image/png');
-            const link = document.createElement('a');
-        
-            link.href = dataUrl;
-            link.download = 'canvas-image.png';
-            link.click();
-
+            
+            //ask user if they wish to save the image to their computer
+            const saveImage = window.confirm('Would you Like to save the image?')
+            if(saveImage){
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = 'canvas-image.png';
+                link.click();
+            }
+            
             //send data to be uploaded
             const imageObj: any = {
                 title: 'title',
