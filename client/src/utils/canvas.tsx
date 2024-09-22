@@ -3,8 +3,8 @@ import colors2 from "../assets/colors";
 import { createImage } from "../api/imageAPI";
 
 let selectedColor: string  = '#000000';
-var canvasWidth = 500 | 0;
-var canvasHeight = 500 | 0;
+var canvasWidth = 500 | 0
+var canvasHeight = 500 | 0
 
 
 //should update the page depending on which pixel was clicked on.

@@ -45,8 +45,8 @@ const Home: React.FC = () => {
           <div>
               {projects.map((project) => (
                 <div key={project.id}>
-                  <img src={project.imageData} width={project.width * .5} height={project.height * .5}></img>
-                  <h1>{project.title}</h1>
+                  <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>
+                  <h2>{project.title}</h2>
                   <h3>width: {project.width} Height: {project.height}</h3>
                   <h3>Made by {project.assignedUser.username}</h3>
                 </div>

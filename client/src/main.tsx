@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import CanvasPage from './pages/canvasPage.tsx';
 import HomePage from './pages/homePage.tsx';
+import LoginPage from './pages/loginPage.tsx';
+import CreateAccount from './pages/createAccountPage.tsx';
 import Error from './pages/errorPage.tsx';
 
 const router = createBrowserRouter([
@@ -19,10 +21,20 @@ const router = createBrowserRouter([
       },
       
       {
-        path: '/CanvasPage',
+        path: '/canvasPage',
         element: <CanvasPage/>,
 
       },
+
+      {
+        path: '/login',
+        element: <LoginPage/>
+      },
+
+      {
+        path: '/createAccount',
+        element: <CreateAccount/>
+      }
     ],
   },
 ]);
