@@ -20,27 +20,24 @@ const CanvasComponent: React.FC = () => {
         height: canvasHeight
     });
 
-    const [colorCode, setColorCode] = useState({value: ''})
+    const [colorCode, setColorCode] = useState('#000000')
 
     const changeColor = (color: string) => {
+        setColorCode(color)
         return selectedColor = color;
     }
 
     const changeColorCode = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
+        const {value} = e.target;
         selectedColor = value;
-
-        setColorCode({
-            ...colorCode,
-            [name]: value
-        });
+        setColorCode(selectedColor)
 
     }
 
 
     const handleWidthChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
-        const valueInt = parseInt(value)
+        const valueInt = parseInt(value) * pixelSize
         canvasWidth = valueInt;
         
         setDimensionData({
@@ -51,7 +48,7 @@ const CanvasComponent: React.FC = () => {
 
     const handleHeightChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
-        const valueInt = parseInt(value)
+        const valueInt = parseInt(value) * pixelSize
         canvasHeight = valueInt;
         
         setDimensionData({
@@ -76,8 +73,10 @@ const CanvasComponent: React.FC = () => {
 
     const drawPixel = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
         //grabs the mouse click coordinates
-        const pixelX = Math.floor(x /pixelSize) * pixelSize;
+        const pixelX = Math.floor(x /pixelSize) * pixelSize
         const pixelY = Math.floor(y /pixelSize) * pixelSize;
+
+        
 
         ctx.fillStyle = selectedColor;
         ctx.fillRect(pixelX, pixelY, pixelSize, pixelSize);
@@ -221,7 +220,7 @@ const CanvasComponent: React.FC = () => {
                 </div>
 
                 <div className="colorCodeContainer">
-                    <input type='text' name='colorCode' value={colorCode.value} onChange={changeColorCode}></input>
+                    <label>Hex Code: <input type='text' name='colorCode' value={colorCode || ''} onChange={changeColorCode}></input></label>
                 </div>
                 <div className="colorSelectors">
                     {colors2.map((color: {index: number, color: string, colorName: string}) => (
