@@ -1,5 +1,6 @@
 const retrieveImages = async () => {
     try {
+        //should be a fetch to /api/images
         const response = await fetch('/api/images', {
             headers: {
                 'Content-Type': 'application/json',
@@ -21,6 +22,7 @@ const retrieveImages = async () => {
 
 const createImage = async (body: ImageData) => {
     try {
+        //should be a fetch to /api/images
         const response = await fetch('/api/images', {
             method: 'POST',
             headers: {
