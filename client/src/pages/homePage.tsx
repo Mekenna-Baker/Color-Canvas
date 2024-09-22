@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { retrieveImages } from '../api/imageAPI';
 
 import Error from './errorPage';
