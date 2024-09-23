@@ -4,6 +4,8 @@ import axios from 'axios'; // Add axios if you're using it for API calls
 import Navbar from '../components/Navbar'; // Fixed the case sensitivity issue
 import Error from './ErrorPage'; // Fixed the case sensitivity issue
 import logo from '../assets/logo.png'; // Import the logo image
+import './homePage.css';
+
 
 const Home: React.FC = () => {
   const [isLoggedIn] = useState<boolean>(false); // Removed setIsLoggedIn since it's unused
