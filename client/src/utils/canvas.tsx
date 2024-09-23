@@ -1,10 +1,13 @@
-import  React, { useRef, useState, useEffect, ChangeEvent} from "react";
+import  React, { useRef, useState, useEffect, ChangeEvent} from "react"
 import colors2 from "../assets/colors";
 import { createImage } from "../api/imageAPI";
+import Auth from "./auth";
+import { retrieveUser } from "../api/userAPI";
+import { HexColorPicker } from "react-colorful";
 
-let selectedColor: string  = '#000000';
 let canvasWidth = 500 | 0;
 let canvasHeight = 500 | 0;
+
 
 
 //should update the page depending on which pixel was clicked on.
@@ -14,24 +17,23 @@ const CanvasComponent: React.FC = () => {
 
     const [isPainting, setPainting] = useState(false);
     const [isClear, setClear] = useState(false);
-
     const [dimensionData, setDimensionData] = useState({
         width: canvasWidth,
         height: canvasHeight
     });
 
+    //handles all selected colors on the page
     const [colorCode, setColorCode] = useState('#000000')
+    
 
     const changeColor = (color: string) => {
         setColorCode(color)
-        return selectedColor = color;
+        return colorCode
     }
 
     const changeColorCode = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {value} = e.target;
-        selectedColor = value;
-        setColorCode(selectedColor)
-
+        setColorCode(value)
     }
 
 
@@ -78,7 +80,7 @@ const CanvasComponent: React.FC = () => {
 
         
 
-        ctx.fillStyle = selectedColor;
+        ctx.fillStyle = colorCode;
         ctx.fillRect(pixelX, pixelY, pixelSize, pixelSize);
     }
 
@@ -158,21 +160,19 @@ const CanvasComponent: React.FC = () => {
         console.log('Uploading...')
         
         try {
+            //grab the users data by username
+            const usernameData = Auth.getProfile()
+            const idData =  await retrieveUser(usernameData.username)
+            
+
             const canvas = canvasRef.current;
+
             if(!canvas) return;
-        
+            
+            //convert image to a base64 String
             const dataUrl = canvas?.toDataURL('image/png');
             console.log(dataUrl)
             
-            //ask user if they wish to save the image to their computer
-            const saveImage = window.confirm('Would you Like to save the image?')
-            if(saveImage){
-                const link = document.createElement('a');
-                link.href = dataUrl;
-                link.download = 'canvas-image.png';
-                link.click();
-            }
-
             const imageName = window.prompt('What do you wanna name your Project?') || 'title'
             //send data to be uploaded
             const imageObj: any = {
@@ -180,12 +180,24 @@ const CanvasComponent: React.FC = () => {
                 width: canvasWidth,
                 height: canvasHeight, 
                 imageData: dataUrl,
-                userId: 2,
+                userId: idData.id,
             }
+
+            //ask user if they wish to save the image to their computer
+            const saveImage = window.confirm('Would you Like to save the image?')
+            if(saveImage){
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = imageName + '.png';
+                link.click();
+            }
+
+            console.log(imageObj)
 
             const result = await createImage(imageObj);
             console.log('Image Uploaded successfully: ', result);
-            
+
+            window.location.assign('/')
 
         } catch(err: any){
             console.error('Error Uploading image Data:', err)
@@ -203,20 +215,25 @@ const CanvasComponent: React.FC = () => {
     }, [dimensionData]);
 
     return (
-        <div className="canvas-parent-container">
+        <div className="canvasComponentContainer">
             <div className="canvasHolder">
                 <canvas id='paintMain' ref={canvasRef} width={canvasWidth} height={canvasHeight} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUpLeave} onMouseLeave={handleMouseUpLeave} style={{border: '1px solid red'}}></canvas>
             
             </div>
-            <div className="buttonContainer">
+            <div className="componentsContainer">
 
                 <div className="dimensionsContainer">
                     <input type='text' name='width' value={dimensionData.width || ''} onChange={(e: any) => {handleWidthChange(e)}}></input>
                     <input type='text' name='height' value={dimensionData.height || ''} onChange={(e: any) => {handleHeightChange(e)}}></input>
                 </div>
 
-                <div> 
+                <div className="eraser"> 
                     <button onClick={() => setClear(true)}>Eraser</button>
+                </div>
+
+                <div className="hexColorPicker">
+                    {/* this is the hex color picker box */}
+                    <HexColorPicker color={colorCode} onChange={changeColor}/>
                 </div>
 
                 <div className="colorCodeContainer">
@@ -224,11 +241,11 @@ const CanvasComponent: React.FC = () => {
                 </div>
                 <div className="colorSelectors">
                     {colors2.map((color: {index: number, color: string, colorName: string}) => (
-                        <button key={color.index} style={{backgroundColor: color.color}} onClick={() => {changeColor(color.color); setClear(false)}}></button>
+                        <button key={color.index} className='colors' style={{backgroundColor: color.color}} onClick={() => {changeColor(color.color); setClear(false)}}></button>
                     ))}
                 </div>
 
-                <div>
+                <div className="clear">
                     <button onClick={clearCanvas}>Clear Canvas</button>
                 </div>
 

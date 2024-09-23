@@ -1,6 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
-import Auth from '../utils/auth'
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+import Auth from '../utils/auth.js'
 import {login} from '../api/authAPI';
+import '../style/loginPage.css';
 
 const LoginPage: React.FC = () => {
     const [loginData, setLoginData] = useState({
@@ -8,7 +9,6 @@ const LoginPage: React.FC = () => {
         password: ''
     });
 
-    //redirect to canvas is user is logged in
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
         setLoginData({
@@ -17,8 +17,7 @@ const LoginPage: React.FC = () => {
         });
     };
 
-    //handle login
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
             const data = await login(loginData);

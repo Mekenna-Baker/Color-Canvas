@@ -1,0 +1,124 @@
+/* HomePage Styles */
+body {
+    margin: 0;
+  }
+  
+  .welcome-container {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+    border-radius: 10px;
+  }
+  
+  .welcome-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-container p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .welcome-container img {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+
+  
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #45a049;
+  }
+  
+  .btn-secondary {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #007bb5;
+  }
+  
+  /* Projects Section */
+  .projects-container {
+    /* width: 1000px; */
+    display: flex;
+    flex-direction:column;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .projects-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .projects {
+    display: flex;
+  }
+  
+  .project-card {
+    margin: 15px;
+    padding: 20px;
+    width: 250px;
+    height: 280px;
+    margin-bottom: 20px;
+    background-color: #dbdbdb;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .project-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .project-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .project-card p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .loading-container {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  

@@ -38,7 +38,6 @@ export function UserAssembely(sequelize: Sequelize): typeof User {
         username: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
             validate: {
                 notEmpty: true,
             }
@@ -47,7 +46,6 @@ export function UserAssembely(sequelize: Sequelize): typeof User {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
             validate: {
                 isEmail: true,
             }
@@ -62,8 +60,6 @@ export function UserAssembely(sequelize: Sequelize): typeof User {
             }
         }
     }, {
-    
-        modelName: 'User', //Naming model User, and mapping it to table users
         tableName: 'users',
         timestamps: true, //enable automatic timestamps
         sequelize,
@@ -72,12 +68,9 @@ export function UserAssembely(sequelize: Sequelize): typeof User {
                 await user.setPassword(user.password);
             },
             beforeUpdate: async (user: User) => {
-                if(user.changed('password')) {
-                    await user.setPassword(user.password);
-                }  
+                await user.setPassword(user.password);
             },
         }
-    
     });
 
     return User

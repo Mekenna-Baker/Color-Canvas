@@ -7,6 +7,7 @@ import CanvasPage from './pages/canvasPage.tsx';
 import HomePage from './pages/homePage.tsx';
 import Error from './pages/errorPage.tsx';
 import LoginPage from './pages/loginPage.tsx';
+import CreateAccountPage from './pages/createAccountPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         path: '/login',  // Add the login route here
         element: <LoginPage />,  // LoginPage component for this path
       },
+      {
+        path: '/create',
+        element: <CreateAccountPage />
+      }
       
     ],
   },

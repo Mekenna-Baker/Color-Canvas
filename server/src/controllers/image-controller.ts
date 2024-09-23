@@ -20,6 +20,21 @@ export const getAllImages = async (_req: Request, res: Response) => {
     }
 };
 
+//Get images by id
+export const getImagesById = async (req: Request, res: Response) => {
+    const {id} = req.params;
+    try {
+        const image = await Image.findAll({where: {userId: id}})
+        if (image) {
+            res.json(image)
+        } else {
+            res.status(404).json({message: 'Images not found'})
+        }
+    } catch (err: any) {
+        res.status(500).json({message: err.message });
+    }
+}
+
 //Post Images
 export const createImage = async (req: Request, res: Response) => {
     const {title, width, height, imageData, userId } = req.body;
