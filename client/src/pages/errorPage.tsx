@@ -1,8 +1,8 @@
 // import React from 'react';
 // import { Link } from 'react-router-dom';
-// import './ErrorPage.css';
+// import './errorPage.css';
 
-const Error = () => {
+const Error: React.FC = () => {
     return (
         <div>
             <h1>Error!</h1>
