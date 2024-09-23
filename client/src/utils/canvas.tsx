@@ -1,11 +1,12 @@
 import  React, { useRef, useState, useEffect, ChangeEvent} from "react"
 import colors2 from "../assets/colors";
 import { createImage } from "../api/imageAPI";
+import Auth from "./auth";
+import { retrieveUser } from "../api/userAPI";
 
 let selectedColor: string  = '#000000';
 var canvasWidth = 500 | 0
 var canvasHeight = 500 | 0
-
 
 //should update the page depending on which pixel was clicked on.
 const CanvasComponent: React.FC = () => {
@@ -158,11 +159,16 @@ const CanvasComponent: React.FC = () => {
         console.log('Uploading...')
         
         try {
+            //grab the users data by username
+            const usernameData = Auth.getProfile()
+            const idData =  await retrieveUser(usernameData.username)
+            
+
             const canvas = canvasRef.current;
+
             if(!canvas) return;
         
             const dataUrl = canvas?.toDataURL('image/png');
-            console.log(dataUrl)
             
             //ask user if they wish to save the image to their computer
             const saveImage = window.confirm('Would you Like to save the image?')
@@ -180,8 +186,10 @@ const CanvasComponent: React.FC = () => {
                 width: canvasWidth,
                 height: canvasHeight, 
                 imageData: dataUrl,
-                userId: 2,
+                userId: idData.id,
             }
+
+            console.log(imageObj)
 
             const result = await createImage(imageObj);
             console.log('Image Uploaded successfully: ', result);

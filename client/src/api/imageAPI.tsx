@@ -1,9 +1,13 @@
+import { ImageData } from "../interfaces/imageData";
+import Auth from "../utils/auth";
+
 const retrieveImages = async () => {
     try {
         //should be a fetch to /api/images
         const response = await fetch('/api/images', {
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${Auth.getToken()}`
             }
         });
 
@@ -27,6 +31,7 @@ const createImage = async (body: ImageData) => {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json',
+                Authorization: `Bearer ${Auth.getToken()}`
             },
             body: JSON.stringify(body)
         })

@@ -13,6 +13,42 @@ export const getAllusers = async (_req: Request, res: Response) => {
     }
 };
 
+//Get user :id (grab a user with id)
+export const getUserById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const user = await User.findByPk(id, {
+        attributes: { exclude: ['password'] }
+      });
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+//Get user :username (grab user with a username)
+export const getUserByUsername = async (req: Request, res: Response) => {
+    const { username } = req.params;
+    try {
+        //find a users data by a username
+        const user = await User.findOne({ where: { username: username } })
+        console.log(user)
+
+        if(user){
+            res.json(user)
+        } else {
+            res.status(404).json({message: 'User not found'});
+        }
+    } catch (err: any) {
+        res.status(500).json({message: err.message})
+    }
+
+}
+
 // Post users (create a new user)
 export const createUser = async (req: Request, res: Response) => {
     const {username, email, password} = req.body;
