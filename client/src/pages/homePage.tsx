@@ -62,10 +62,12 @@ const Home: React.FC = () => {
                   <h3>Made by {project.assignedUser.username}</h3>
                 </div>
               )
-            )};
+            )}
           </div>
         )
       }
+
+      <button onClick={auth.logout}>Logout</button>
     </>
   );
 };

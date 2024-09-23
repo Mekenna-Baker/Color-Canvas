@@ -2,6 +2,7 @@ import {Router, Request, Response} from 'express';
 import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { createUser } from '../controllers/user-controller.js';
 
 export const login = async (req: Request, res: Response) => {
     const { username, password } = req.body;
@@ -11,12 +12,12 @@ export const login = async (req: Request, res: Response) => {
     });
   
     if(!user){
-      return res.status(401).json({message: 'Authentication Failed'});
+      return res.status(401).json({message: 'Authentication Failed: username error'});
     }
     console.log('Password New:', password , '   Password old:', user.password)
     const passwordValidity = await bcrypt.compare(password, user.password);
     if (!passwordValidity){
-      return res.status(401).json({message: "Authentication Failed"});
+      return res.status(401).json({message: "Authentication Failed: password error"});
     }
   
     const secretKey = process.env.JWT_SECRET_KEY || '';
@@ -29,12 +30,13 @@ export const exists = async (req: Request, res: Response) => {
     const {username, email} = req.body;
 
     try {
-        const user = User.findAll({
+        const user: any[any] = await User.findAll({
             where: {username, email},
         })
-
+        const arrayCheck = user.length > 0 ? true : false
+       
         //if the user comes out null then return false. Signifying that the user does not exist
-        if(!user){
+        if(!arrayCheck){
             return res.json({exists: false});
         }
 
@@ -48,6 +50,8 @@ export const exists = async (req: Request, res: Response) => {
 
 
 const router = Router();
+//Post User (create user)
+router.post('/create', createUser);
 router.post('/check', exists)
 router.post('/login', login)
 

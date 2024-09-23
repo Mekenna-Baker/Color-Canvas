@@ -21,11 +21,15 @@ const Navbar = () => {
             <nav>
                 <Link to='/' className='link'>Home</Link>
                 {
-                    !loginCheck ? ('') : (<Link to='/canvasPage' className='link'>Canvas</Link>)
+                    !loginCheck ? (
+                        <div>
+                            <Link to='/login' className='link'>Log In</Link>
+                            <Link to="/create" className='link'>Create an Account</Link>
+                        </div>
+                        
+                    ) : (<Link to='/canvasPage' className='link'>Canvas</Link>)
                 }
-                <Link to='/login' className='link'>Log In</Link>
-                <Link to="/create" className='link'>Create an Account</Link>
-
+            
             </nav>
         </div>
         

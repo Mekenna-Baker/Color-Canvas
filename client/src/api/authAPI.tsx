@@ -25,7 +25,7 @@ const login = async (userInfo: UserLogin) => {
 
 const createAccount = async (userInfo: UserCreate) => {
     try {
-        const response = await fetch('/api/users', {
+        const response = await fetch('/auth/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
