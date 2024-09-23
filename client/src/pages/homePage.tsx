@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-import './homePage.css';
 import { retrieveImages } from '../api/imageAPI';
 import { retrieveImagesbyId } from '../api/imageAPI';
 import { retrieveUser } from '../api/userAPI';
@@ -8,6 +6,7 @@ import auth from '../utils/auth';
 
 import Error from './errorPage';
 import logo from '../assets/logo.png'; // Import the logo image from assets folder
+import '../style/homePage.css';
 
 const Home: React.FC = () => {
   //fix this line when the code for login has been added

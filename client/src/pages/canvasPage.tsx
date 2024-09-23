@@ -1,5 +1,5 @@
 import CanvasComponent from "../utils/canvas";
-import './canvasPage.css';
+import '../style/canvasPage.css';
 
 const canvasPage: React.FC = () => {
     return (
