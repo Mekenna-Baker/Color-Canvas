@@ -3,39 +3,52 @@ const colors2: any = [
     
     {
         index: 1,
-        color: '#ffffff',
-        colorName: 'White',
+        color: 'white',
     },
 
     {
         index: 2,
-        color: '#000000',
-        colorName: 'Black',
+        color: 'black',
     },
 
     {
         index: 3,
-        color: '#ff0000',
-        colorName: 'Red'
+        color: 'red',
     },
 
     {
         index: 4,
-        color: '#2980B9',
-        colorName: 'Greyish Blue',
+        color: 'blue',
     },
 
     {
         index: 5,
-        color: '#1E8449',
-        colorName: 'Greyish Green',
+        color: 'green',
     },
 
     {
         index: 6,
-        color: '#D35400',
-        colorName: 'Greyish Orange'
-        
+        color: 'yellow',
+    },
+
+    {
+        index: 7,
+        color: 'orange'
+    },
+
+    {
+        index: 8,
+        color: 'purple',     
+    },
+
+    {
+        index: 9,
+        color: 'brown'
+    },
+
+    {
+        index: 10,
+        color: 'pink'
     }
 ]
 
