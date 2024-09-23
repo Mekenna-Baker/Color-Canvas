@@ -212,23 +212,23 @@ const CanvasComponent: React.FC = () => {
     }, [dimensionData]);
 
     return (
-        <div className="canvas-parent-container">
+        <div className="canvasComponentContainer">
             <div className="canvasHolder">
                 <canvas id='paintMain' ref={canvasRef} width={canvasWidth} height={canvasHeight} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUpLeave} onMouseLeave={handleMouseUpLeave} style={{border: '1px solid red'}}></canvas>
             
             </div>
-            <div className="buttonContainer">
+            <div className="componentsContainer">
 
                 <div className="dimensionsContainer">
                     <input type='text' name='width' value={dimensionData.width || ''} onChange={(e: any) => {handleWidthChange(e)}}></input>
                     <input type='text' name='height' value={dimensionData.height || ''} onChange={(e: any) => {handleHeightChange(e)}}></input>
                 </div>
 
-                <div> 
+                <div className="eraser"> 
                     <button onClick={() => setClear(true)}>Eraser</button>
                 </div>
 
-                <div>
+                <div className="hexColorPicker">
                     {/* this is the hex color picker box */}
                     <HexColorPicker color={colorCode} onChange={changeColor}/>
                 </div>
@@ -238,11 +238,11 @@ const CanvasComponent: React.FC = () => {
                 </div>
                 <div className="colorSelectors">
                     {colors2.map((color: {index: number, color: string, colorName: string}) => (
-                        <button key={color.index} style={{backgroundColor: color.color}} onClick={() => {changeColor(color.color); setClear(false)}}></button>
+                        <button key={color.index} className='colors' style={{backgroundColor: color.color}} onClick={() => {changeColor(color.color); setClear(false)}}></button>
                     ))}
                 </div>
 
-                <div>
+                <div className="clear">
                     <button onClick={clearCanvas}>Clear Canvas</button>
                 </div>
 

@@ -74,29 +74,38 @@ const Home: React.FC = () => {
           </div>
         ) : (
           <div>
-            <img src={logo} width='150' height='150'></img>
-
-            <div>
-              <h3>Your Projects</h3>
-              {userProjects.map((project: any) => (
-                <div key={project.id}>
-                  <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>
-                    <h2>{project.title}</h2>
-                    <h3>width: {project.width} Height: {project.height}</h3>
-                </div>
-              ))}
+            <div className='welcome-container'>
+              <img src={logo} width='150' height='150'></img>
+              <h3>Welcome to our site!</h3>
             </div>
-            <div>
-              <h3>All Projects!</h3>
-              {projects.map((project) => (
-                  <div key={project.id}>
+            
+
+            <div className='projects-container'>
+              <h2>Your Projects</h2>
+              <div className='projects'>
+                {userProjects.map((project: any) => (
+                  <div key={project.id} className='project-card'>
                     <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>
-                    <h2>{project.title}</h2>
-                    <h3>width: {project.width} Height: {project.height}</h3>
-                    <h3>Made by {project.assignedUser.username}</h3>
+                      <h3>{project.title}</h3>
+                      <h5>width: {project.width} Height: {project.height}</h5>
                   </div>
-                )
-              )}
+                ))}
+              </div>
+              
+            </div>
+            <div className='projects-container'>
+              <h2>All Projects!</h2>
+              <div className='projects'>
+                {projects.map((project) => (
+                    <div key={project.id} className='project-card'>
+                      <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>
+                      <h4>{project.title}</h4>
+                      <h5>width: {project.width} Height: {project.height}</h5>
+                      <h5>Made by {project.assignedUser.username}</h5>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
           </div>
         )
