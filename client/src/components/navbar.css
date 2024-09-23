@@ -4,10 +4,18 @@
     display: flex;
     background-color: rgb(194, 77, 4);
     flex-direction: row;
+    border: 7px solid rgb(125, 49, 1);
+    border-radius: 10px;
+}
+
+.nav div {
+    margin: 0px;
+    padding: 0px;
+    display: inline;
 }
 
 .link {
-    margin: 10px;
+    margin: 20px;
     font-size: 30px;
     font-weight: 800;
     color: black;

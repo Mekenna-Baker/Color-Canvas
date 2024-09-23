@@ -66,7 +66,7 @@ const Home: React.FC = () => {
     <>
       {
         !isLoggedIn ? (
-          <div>
+          <div className='welcome-container'>
             <img src={logo} width='150' height='150'></img>
             <h3>
               Login or Create an account with us to Create and View Canvases!
@@ -80,14 +80,15 @@ const Home: React.FC = () => {
             </div>
             
 
-            <div className='projects-container'>
+            <div className='UserProjects-container'>
               <h2>Your Projects</h2>
               <div className='projects'>
                 {userProjects.map((project: any) => (
                   <div key={project.id} className='project-card'>
                     <img src={project.imageData} width='100' height={(project.height * 200) / (project.width + project.height)}></img>
                       <h3>{project.title}</h3>
-                      <h5>width: {project.width} Height: {project.height}</h5>
+                      <h5>width: {project.width}</h5>
+                      <h5>Height: {project.height}</h5>
                   </div>
                 ))}
               </div>
