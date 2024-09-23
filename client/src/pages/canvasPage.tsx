@@ -1,6 +1,7 @@
 import CanvasComponent from "../utils/canvas";
+import './canvasPage.css';
 
-const CanvasPage = () => {
+const canvasPage: React.FC = () => {
     return (
         <div className="canvasPage">
             <h1>Canvas Page!</h1>
@@ -10,4 +11,4 @@ const CanvasPage = () => {
     )
 }
 
-export default CanvasPage;
+export default canvasPage;

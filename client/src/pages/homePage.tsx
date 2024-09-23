@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+
+import './homePage.css';
 import { retrieveImages } from '../api/imageAPI';
 import { retrieveImagesbyId } from '../api/imageAPI';
 import { retrieveUser } from '../api/userAPI';
