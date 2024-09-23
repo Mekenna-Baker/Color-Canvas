@@ -11,10 +11,7 @@ const login = async (userInfo: UserLogin) => {
             body: JSON.stringify(userInfo)
         })
 
-        console.log(response)
-
         const data = await response.json()
-        console.log(data)
         if(!response.ok){
              throw new Error('User information not retrieved, check network tab for more information!');
         }
@@ -36,11 +33,11 @@ const createAccount = async (userInfo: UserCreate) => {
             body: JSON.stringify(userInfo)
         })
 
+        const data = response.json();
         if(!response.ok){
             throw new Error('Invalid API response, check network tab!')
         }
 
-        const data = response.json();
         return data
     } catch (err) {
         console.log('ERROR from User Upload: ', err);

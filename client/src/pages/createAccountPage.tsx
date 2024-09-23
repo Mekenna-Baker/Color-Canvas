@@ -19,20 +19,16 @@ const CreateAccountPage = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        try {
+
             //check to see that the username and email dont already exist. 
             const userCheck  = await accountValidity(userData);
-            // const userCheck = false;
 
-            if(userCheck == false){
+            if(!userCheck){
                 const result = await createAccount(userData)
                 console.log('User Uploaded Succesfully: ', result)
             } else {
                 setUserCheck(false)   
             }
-        } catch (err) {
-            console.error('Failed to create new Account:', err)
-        }
     }
 
     return(

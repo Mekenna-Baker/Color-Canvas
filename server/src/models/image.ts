@@ -62,12 +62,9 @@ export function ImageAssembelly(sequelize: Sequelize): typeof Image {
             onDelete: 'CASCADE',
         }
     }, {
-
-        modelName: 'Image',
         tableName: 'images',
         timestamps: true,
         sequelize,
-
     });
 
     return Image

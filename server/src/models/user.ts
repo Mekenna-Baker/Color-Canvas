@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 interface UserAttributes {  //defining attributes for model
     id: number;
-    email?: string;
+    email: string;
     username: string;
     password: string;
 }
@@ -12,7 +12,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {  //define user class
     public id!: number;
-    public email?: string;
+    public email!: string;
     public username!: string;
     public password!: string;
 
@@ -68,12 +68,9 @@ export function UserAssembely(sequelize: Sequelize): typeof User {
                 await user.setPassword(user.password);
             },
             beforeUpdate: async (user: User) => {
-                if(user.changed('password')) {
-                    await user.setPassword(user.password);
-                }  
+                await user.setPassword(user.password);
             },
         }
-    
     });
 
     return User

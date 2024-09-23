@@ -13,6 +13,10 @@ export const getAllusers = async (_req: Request, res: Response) => {
     }
 };
 
+//Get user :id (grab a user with id)
+
+//Get user :username (grab user with a username)
+
 // Post users (create a new user)
 export const createUser = async (req: Request, res: Response) => {
     const {username, email, password} = req.body;
