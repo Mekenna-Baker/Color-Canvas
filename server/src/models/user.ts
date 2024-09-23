@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize, Optional } from 'sequelize';
+import bcrypt from 'bcrypt';
 
-interface UserAttributes {  //define user attributes
+interface UserAttributes {  //defining attributes for model
     id: number;
     email: string;
     username: string;
@@ -15,13 +16,16 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public username!: string;
     public password!: string;
 
-    // automatically generated timestamps for creatation and updated
-
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    public async setPassword(password: string){
+        const saltRounds = 10;
+        this.password = await bcrypt.hash(password, saltRounds)
+    }
 }
 
-//initalize user model 
+//initialize the User model
 
 export function UserAssembely(sequelize: Sequelize): typeof User {
     User.init({
@@ -62,7 +66,17 @@ export function UserAssembely(sequelize: Sequelize): typeof User {
         modelName: 'User', //Naming model User, and mapping it to table users
         tableName: 'users',
         timestamps: true, //enable automatic timestamps
-        sequelize
+        sequelize,
+        hooks: {
+            beforeCreate: async (user: User) => {
+                await user.setPassword(user.password);
+            },
+            beforeUpdate: async (user: User) => {
+                if(user.changed('password')) {
+                    await user.setPassword(user.password);
+                }  
+            },
+        }
     
     });
 

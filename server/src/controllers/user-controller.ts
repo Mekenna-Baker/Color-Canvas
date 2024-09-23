@@ -17,12 +17,13 @@ export const getAllusers = async (_req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
     const {username, email, password} = req.body;
     try {
-        const newUser = await User.create({ username, email, password});
+        const newUser = await User.create({ username, password, email});
         res.status(201).json(newUser)
     } catch (err: any){
         res.status(400).json({message: err.message});
     }
 };
+
 
 // Put users (Update user)
 export const updateUser = async (req: Request, res: Response) => {
@@ -44,4 +45,3 @@ export const updateUser = async (req: Request, res: Response) => {
         res.status(400).json({message: err.message});
     }
 };
-
