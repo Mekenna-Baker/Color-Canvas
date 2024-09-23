@@ -1,7 +1,8 @@
 import {useState, ChangeEvent, FormEvent} from "react";
-import { createAccount } from "../api/authAPI";
+import { createAccount, accountValidity} from "../api/authAPI";
 
 const CreateAccountPage = () => {
+    const [userCheck, setUserCheck] = useState<boolean>(true)
     const [userData, setUserData] = useState({
         username: '',
         email: '',
@@ -19,16 +20,26 @@ const CreateAccountPage = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const result = await createAccount(userData)
-            console.log('User Uploaded Succesfully: ', result)
+            //check to see that the username and email dont already exist. 
+            const userCheck  = await accountValidity(userData);
+            // const userCheck = false;
 
+            if(userCheck == false){
+                const result = await createAccount(userData)
+                console.log('User Uploaded Succesfully: ', result)
+            } else {
+                setUserCheck(false)   
+            }
         } catch (err) {
             console.error('Failed to create new Account:', err)
         }
     }
+
     return(
         <div>
             <h1>Create an Account!</h1>
+
+            {userCheck ? (''): (<h3>Username or Email already exists!</h3>)}
 
             <form onSubmit={handleSubmit}>
                 <label>Username: </label>
