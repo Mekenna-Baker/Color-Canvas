@@ -1,5 +1,5 @@
-export interface UserLogin {
+export interface UserCreate {
     username: string | null;
-    email?: string | null;
+    email: string | null;
     password: string | null;
 }

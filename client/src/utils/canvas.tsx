@@ -1,11 +1,12 @@
 import  React, { useRef, useState, useEffect, ChangeEvent} from "react"
 import colors2 from "../assets/colors";
 import { createImage } from "../api/imageAPI";
+import Auth from "./auth";
+import { retrieveUser } from "../api/userAPI";
+import { HexColorPicker } from "react-colorful";
 
-let selectedColor: string  = '#000000';
 var canvasWidth = 500 | 0
 var canvasHeight = 500 | 0
-
 
 //should update the page depending on which pixel was clicked on.
 const CanvasComponent: React.FC = () => {
@@ -14,24 +15,23 @@ const CanvasComponent: React.FC = () => {
 
     const [isPainting, setPainting] = useState(false);
     const [isClear, setClear] = useState(false);
-
     const [dimensionData, setDimensionData] = useState({
         width: canvasWidth,
         height: canvasHeight
     });
 
+    //handles all selected colors on the page
     const [colorCode, setColorCode] = useState('#000000')
+    
 
     const changeColor = (color: string) => {
         setColorCode(color)
-        return selectedColor = color;
+        return colorCode
     }
 
     const changeColorCode = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {value} = e.target;
-        selectedColor = value;
-        setColorCode(selectedColor)
-
+        setColorCode(value)
     }
 
 
@@ -78,7 +78,7 @@ const CanvasComponent: React.FC = () => {
 
         
 
-        ctx.fillStyle = selectedColor;
+        ctx.fillStyle = colorCode;
         ctx.fillRect(pixelX, pixelY, pixelSize, pixelSize);
     }
 
@@ -158,21 +158,18 @@ const CanvasComponent: React.FC = () => {
         console.log('Uploading...')
         
         try {
-            const canvas = canvasRef.current;
-            if(!canvas) return;
-        
-            const dataUrl = canvas?.toDataURL('image/png');
-            console.log(dataUrl)
+            //grab the users data by username
+            const usernameData = Auth.getProfile()
+            const idData =  await retrieveUser(usernameData.username)
             
-            //ask user if they wish to save the image to their computer
-            const saveImage = window.confirm('Would you Like to save the image?')
-            if(saveImage){
-                const link = document.createElement('a');
-                link.href = dataUrl;
-                link.download = 'canvas-image.png';
-                link.click();
-            }
 
+            const canvas = canvasRef.current;
+
+            if(!canvas) return;
+            
+            //convert image to a base64 String
+            const dataUrl = canvas?.toDataURL('image/png');
+            
             const imageName = window.prompt('What do you wanna name your Project?') || 'title'
             //send data to be uploaded
             const imageObj: any = {
@@ -180,12 +177,24 @@ const CanvasComponent: React.FC = () => {
                 width: canvasWidth,
                 height: canvasHeight, 
                 imageData: dataUrl,
-                userId: 2,
+                userId: idData.id,
             }
+
+            //ask user if they wish to save the image to their computer
+            const saveImage = window.confirm('Would you Like to save the image?')
+            if(saveImage){
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = imageName + '.png';
+                link.click();
+            }
+
+            console.log(imageObj)
 
             const result = await createImage(imageObj);
             console.log('Image Uploaded successfully: ', result);
-            
+
+            window.location.assign('/')
 
         } catch(err: any){
             console.error('Error Uploading image Data:', err)
@@ -217,6 +226,11 @@ const CanvasComponent: React.FC = () => {
 
                 <div> 
                     <button onClick={() => setClear(true)}>Eraser</button>
+                </div>
+
+                <div>
+                    {/* this is the hex color picker box */}
+                    <HexColorPicker color={colorCode} onChange={changeColor}/>
                 </div>
 
                 <div className="colorCodeContainer">
