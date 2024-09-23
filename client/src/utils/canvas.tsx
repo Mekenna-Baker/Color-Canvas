@@ -167,18 +167,10 @@ const CanvasComponent: React.FC = () => {
             const canvas = canvasRef.current;
 
             if(!canvas) return;
-        
+            
+            //convert image to a base64 String
             const dataUrl = canvas?.toDataURL('image/png');
             
-            //ask user if they wish to save the image to their computer
-            const saveImage = window.confirm('Would you Like to save the image?')
-            if(saveImage){
-                const link = document.createElement('a');
-                link.href = dataUrl;
-                link.download = 'canvas-image.png';
-                link.click();
-            }
-
             const imageName = window.prompt('What do you wanna name your Project?') || 'title'
             //send data to be uploaded
             const imageObj: any = {
@@ -189,11 +181,21 @@ const CanvasComponent: React.FC = () => {
                 userId: idData.id,
             }
 
+            //ask user if they wish to save the image to their computer
+            const saveImage = window.confirm('Would you Like to save the image?')
+            if(saveImage){
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = imageName + '.png';
+                link.click();
+            }
+
             console.log(imageObj)
 
             const result = await createImage(imageObj);
             console.log('Image Uploaded successfully: ', result);
-            
+
+            window.location.assign('/')
 
         } catch(err: any){
             console.error('Error Uploading image Data:', err)

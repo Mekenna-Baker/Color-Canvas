@@ -24,6 +24,26 @@ const retrieveImages = async () => {
     }
 }
 
+const retrieveImagesbyId = async (id: number | null): Promise<ImageData> => {
+    try {
+        const response = await fetch(`/api/images/${id}`, {
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${Auth.getToken()}`
+            }
+        });
+
+        const data = await response.json();
+        if(!response.ok){
+            throw new Error("Invalid api response, check network tab!")
+        }
+        return data
+    } catch (err: any){
+        console.log("Error from user data retrival:", err);
+        return Promise.reject('Could not fetch projects!')
+    }
+}
+
 const createImage = async (body: ImageData) => {
     try {
         //should be a fetch to /api/images
@@ -49,4 +69,4 @@ const createImage = async (body: ImageData) => {
     }
 }
 
-export {retrieveImages, createImage}
+export {retrieveImages, retrieveImagesbyId, createImage}
