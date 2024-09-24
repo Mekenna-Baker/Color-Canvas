@@ -112,7 +112,7 @@ const Home: React.FC = () => {
         )
       }
 
-      <button onClick={auth.logout}>Logout</button>
+      <button className='logout' onClick={auth.logout}>Logout</button>
     </>
   );
 };

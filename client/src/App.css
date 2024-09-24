@@ -37,41 +37,6 @@
   margin: 10px;
 }
 
-/* Login Page */
-
-form {
-  width: 40%;
-  margin: 20px auto;
-  padding: 20px;
-
-
-}
-
-input {
-  background-color: #FAF9F6;
-  color: black;
-}
-
-label, h2 {
-  color: #eeeee9;
-  padding: 10px;
-}
-
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-
-.submit {
-  width: 20%;
-  padding: 10px;
-  margin: 10px auto;
-
-}
-
 
 
 
