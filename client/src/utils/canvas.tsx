@@ -5,8 +5,10 @@ import Auth from "./auth";
 import { retrieveUser } from "../api/userAPI";
 import { HexColorPicker } from "react-colorful";
 
-var canvasWidth = 500 | 0
-var canvasHeight = 500 | 0
+// eslint-disable-next-line
+var canvasWidth = 500 | 0; 
+// eslint-disable-next-line
+var canvasHeight = 500 | 0;
 
 //should update the page depending on which pixel was clicked on.
 const CanvasComponent: React.FC = () => {
