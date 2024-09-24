@@ -31,8 +31,8 @@ const LoginPage: React.FC = () => {
 
     return (
         <div className="login-page">
+          <h2>Log In</h2>
           <form onSubmit={handleSubmit}>
-            <h2>Log In</h2>
               <label>Username </label>
               <input
                 type="text"

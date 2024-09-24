@@ -1,6 +1,7 @@
 .login-page {
+    color: black;
     max-width: 400px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -11,14 +12,13 @@
     display: flex;
     flex-direction: column;
     width: 40%;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
   }
   
   label, h2 {
     margin-bottom: 5px;
     font-weight: bold;
-    color: #eeeee9;
     padding: 10px;
   }
   
@@ -32,8 +32,8 @@
   }
 
   .submit {
-    width: 20%;
-    padding: 10px;
+    width: 50%;
+    padding: 5px;
     margin: 10px auto;
     font-weight: 750;
     border: 4px solid rgb(125, 49, 1);
