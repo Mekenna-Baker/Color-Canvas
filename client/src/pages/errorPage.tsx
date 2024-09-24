@@ -4,7 +4,7 @@ import '../style/errorPage.css';
 
 const Error: React.FC = () => {
     return (
-        <div>
+        <div className='error-container'> 
             <h1>Error!</h1>
             <p>Im sorry, there was an error loading the page.</p>
 

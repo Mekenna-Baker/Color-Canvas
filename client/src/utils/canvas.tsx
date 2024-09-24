@@ -162,17 +162,15 @@ const CanvasComponent: React.FC = () => {
             //grab the users data by username
             const usernameData = Auth.getProfile()
             const idData =  await retrieveUser(usernameData.username)
-            
-
+    
             const canvas = canvasRef.current;
-
             if(!canvas) return;
             
             //convert image to a base64 String
             const dataUrl = canvas?.toDataURL('image/png');
             
             const imageName = window.prompt('What do you wanna name your Project?') || 'title'
-            //send data to be uploaded
+            //structure the image object
             const imageObj: any = {
                 title: imageName,
                 width: dimensionData.width,
@@ -190,11 +188,8 @@ const CanvasComponent: React.FC = () => {
                 link.click();
             }
 
-            console.log(imageObj)
-
             const result = await createImage(imageObj);
             console.log('Image Uploaded successfully: ', result);
-
             window.location.assign('/')
 
         } catch(err: any){
