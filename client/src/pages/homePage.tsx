@@ -81,7 +81,7 @@ const Home: React.FC = () => {
             
 
             <div className='UserProjects-container'>
-              <h2>Your Projects</h2>
+              <h1>Your Projects</h1>
               <div className='projects'>
                 {userProjects.map((project: any) => (
                   <div key={project.id} className='project-card'>
@@ -95,7 +95,7 @@ const Home: React.FC = () => {
               
             </div>
             <div className='projects-container'>
-              <h2>All Projects!</h2>
+              <h1>All Projects</h1>
               <div className='projects'>
                 {projects.map((project) => (
                     <div key={project.id} className='project-card'>
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
         )
       }
 
-      <button onClick={auth.logout}>Logout</button>
+      <button className='logout' onClick={auth.logout}>Logout</button>
     </>
   );
 };

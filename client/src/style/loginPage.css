@@ -10,11 +10,16 @@
   form {
     display: flex;
     flex-direction: column;
+    width: 40%;
+    margin: 20px auto;
+    padding: 20px;
   }
   
-  label {
+  label, h2 {
     margin-bottom: 5px;
     font-weight: bold;
+    color: #eeeee9;
+    padding: 10px;
   }
   
   input {
@@ -22,7 +27,21 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #FAF9F6;
+    color: black;
   }
+
+  .submit {
+    width: 20%;
+    padding: 10px;
+    margin: 10px auto;
+    font-weight: 750;
+    border: 4px solid rgb(125, 49, 1);
+    background-image: linear-gradient(to right, #faba25, #f2653a);
+    color: black;
+  
+  }
+  
   
   button {
     padding: 10px;
@@ -31,10 +50,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    
   }
   
   button:hover {
     background-color: #45a049;
+    
   }
   
   .error-message {

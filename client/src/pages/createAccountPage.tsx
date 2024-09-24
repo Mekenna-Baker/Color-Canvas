@@ -57,16 +57,22 @@ const CreateAccountPage = () => {
             {emailCheck ? (''): (<h3>Email is not valid!</h3>)}
 
             <form onSubmit={handleSubmit}>
-                <label>Username: </label>
-                <input type="text" name="username" value={userData.username || ''} onChange={handleChange} required/>
+                <label>Username</label>
+                <input type="text" name="username" value={userData.username || ''} onChange={handleChange} 
+                placeholder='Enter your username here'
+                required/>
 
-                <label>Email: </label>
-                <input type="text" name="email" value={userData.email || ''} onChange={handleChange} required/>
+                <label>Email </label>
+                <input type="text" name="email" value={userData.email || ''} onChange={handleChange} 
+                placeholder='Enter your email here'
+                required/>
 
-                <label>Password: </label>
-                <input type="password" name="password" value={userData.password || ''} onChange={handleChange} required/>
+                <label>Password </label>
+                <input type="password" name="password" value={userData.password || ''} onChange={handleChange}
+                placeholder='Enter your password here' 
+                required/>
 
-                <button type="submit">Create Account</button>
+                <button className='submit'type="submit">Create</button>
             </form>
         </div>
     );
