@@ -44,6 +44,7 @@ form {
   margin: 20px auto;
   padding: 20px;
 
+
 }
 
 input {
@@ -54,6 +55,13 @@ input {
 label, h2 {
   color: #eeeee9;
   padding: 10px;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 

@@ -51,13 +51,13 @@ const CreateAccountPage = () => {
 
     return(
         <div>
-            <h2>Create an Account!</h2>
+            <h2>Create an Account</h2>
 
             {userCheck ? (''): (<h3>Username or Email already exists!</h3>)}
             {emailCheck ? (''): (<h3>Email is not valid!</h3>)}
 
             <form onSubmit={handleSubmit}>
-                <label>Username </label>
+                <label>Username</label>
                 <input type="text" name="username" value={userData.username || ''} onChange={handleChange} 
                 placeholder='Enter your username here'
                 required/>

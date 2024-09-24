@@ -1,19 +1,11 @@
 # Color-Canvas
 
-# <Your-Project-Title>
-
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+Color Canvas is an interactive web application designed to allow users to unleash their creativity by creating, editing, and saving digital art. Users can register, log in, and access a personal gallery of their projects while viewing the creations of others. This platform emphasizes an engaging and customizable experience for artists of all skill levels.
 
 ## Table of Contents (Optional)
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -22,35 +14,24 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Just visit our website! (https://color-canvas.onrender.com/)
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+Once you're at the site, you will be presented with a homepage. From there you can either sign in to an existing account, or create a new account. Once you've logged in or have created an account you will be met with a project page. Here you can view projects made by others, and projects done by yourself! When you're on the project page, you are also presented with an option to visit the canvas page. On the canvas page there will be a canvas, along with a color wheel, and a color palette. You can choose your colors, and color away! Don't worry if you've made a mistake! We have an eraser and you can clear your canvas to start anew! When you're finished with your masterpiece, go ahead and hit upload and it will appear on the project page, under 'My Projects'. 
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
+Joshua Pruitt:  https://github.com/JoshuaPruitt
 
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
+Pedro Chipana:  https://github.com/PeruvPowWow
 
-If you followed tutorials, include links to those here as well.
+Mekenna Baker:  https://github.com/Mekenna-Baker
 
 
 ## Features
 
-If your project has a lot of features, list them here.
-
-## How to Contribute
-
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
-
-## Tests
-
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+User Registration
+User Login
+Create & Edit images
+View All Projects
