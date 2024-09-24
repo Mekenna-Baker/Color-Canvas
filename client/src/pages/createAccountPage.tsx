@@ -50,7 +50,7 @@ const CreateAccountPage = () => {
     }
 
     return(
-        <div>
+        <div className="sign-up-page">
             <h1>Create an Account!</h1>
 
             {userCheck ? (''): (<h3>Username or Email already exists!</h3>)}
