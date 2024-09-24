@@ -8,6 +8,7 @@ import { HexColorPicker } from "react-colorful";
 var canvasWidth = 500 | 0
 var canvasHeight = 500 | 0
 
+
 //should update the page depending on which pixel was clicked on.
 const CanvasComponent: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -16,8 +17,8 @@ const CanvasComponent: React.FC = () => {
     const [isPainting, setPainting] = useState(false);
     const [isClear, setClear] = useState(false);
     const [dimensionData, setDimensionData] = useState({
-        width: canvasWidth,
-        height: canvasHeight
+        width: canvasWidth / pixelSize,
+        height: canvasHeight / pixelSize
     });
 
     //handles all selected colors on the page
@@ -174,8 +175,8 @@ const CanvasComponent: React.FC = () => {
             //send data to be uploaded
             const imageObj: any = {
                 title: imageName,
-                width: canvasWidth,
-                height: canvasHeight, 
+                width: dimensionData.width,
+                height: dimensionData.height, 
                 imageData: dataUrl,
                 userId: idData.id,
             }
@@ -207,6 +208,7 @@ const CanvasComponent: React.FC = () => {
 
         const ctx = canvas.getContext('2d');
         if(!ctx) return;
+
 
         drawGrid(ctx);
     }, [dimensionData]);
