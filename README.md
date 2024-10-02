@@ -8,6 +8,8 @@
 
 Our website is a creation tool and creating sharing platform that lets users create and share images on our website. It was made to inspire creativity in users.
 
+To visit our site online you can click this <a href=https://color-canvas.onrender.com>link</a> to go to our deployed site!
+
 ## Table of Contents
 
 - [Required-Technologies](#required-technologies)
