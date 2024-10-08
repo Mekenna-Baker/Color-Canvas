@@ -197,9 +197,9 @@ Licensed under the MIT license.
     </tr>
     <tr>
         <td>Pedro Chippana</td>
-        <td></td>
+        <td>pedro.chipana94@gmail.com</td>
         <td><a href=https://github.com/PeruvPowWow>GitHub</a></td>
-        <td></td>
+        <td><a href=https://www.linkedin.com/in/pedro-chipana-984b5a119/>LinkedIn</a></td>
     </tr>
     <tr>
         <td>Joshua Pruitt</td>
